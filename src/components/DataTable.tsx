@@ -1,5 +1,6 @@
 import { Payment } from '../types/payment'
 import {
+  EmptyBox,
   Table,
   TableBodyWrapper,
   TableHeader,
@@ -35,6 +36,9 @@ interface Props {
 // presentational component, doesn't need to be on the main page
 
 export const DataTable = ({ payments }: Props) => {
+  if (!payments.length) {
+    return <EmptyBox>{labels.NO_PAYMENTS_FOUND}</EmptyBox>
+  }
   return (
     <TableWrapper>
       <Table>

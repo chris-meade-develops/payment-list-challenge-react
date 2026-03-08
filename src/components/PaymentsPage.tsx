@@ -1,3 +1,9 @@
+// types and hooks
+import { type FormEvent, useState } from 'react'
+import { useFetchTableData } from '../hooks/useFetchTableData'
+import { type SearchParams, SearchParamsSchema } from '../types/searchParams'
+
+//components
 import {
   ClearButton,
   Container,
@@ -9,16 +15,12 @@ import {
   Select,
   Title,
 } from './components'
-import { I18N } from '../constants/i18n'
-import {
-  SearchParams,
-  SearchParamsSchema,
-  useFetchTableData,
-} from '../hooks/useFetchTableData'
-import { FormEvent, useState } from 'react'
 import { DataTable } from './DataTable'
 import { ErrorAlert } from './ErrorAlert'
+
+// constants
 import { CURRENCIES } from '../constants'
+import { I18N } from '../constants/i18n'
 
 // rename easier to type
 const labels = I18N
@@ -30,6 +32,7 @@ const defaultFilters: SearchParams = {
   currency: '',
 }
 
+//logic is co-located, file is only 130 lines and no reuse. Would extract if it grew or became independently testable
 export const PaymentsPage = () => {
   // draft and commmit state rather than update on user input
   const [inputValue, setInputValue] = useState('')
@@ -61,7 +64,6 @@ export const PaymentsPage = () => {
     if (result.success) {
       setFilters(result.data)
     }
-    // todo error handling
   }
 
   const handleClearFilters = () => {

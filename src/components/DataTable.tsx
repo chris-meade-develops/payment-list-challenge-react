@@ -32,6 +32,8 @@ interface Props {
   payments: Payment[]
 }
 
+// presentational component, doesn't need to be on the main page
+
 export const DataTable = ({ payments }: Props) => {
   return (
     <TableWrapper>

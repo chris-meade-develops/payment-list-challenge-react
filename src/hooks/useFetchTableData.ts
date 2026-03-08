@@ -1,6 +1,6 @@
 import z from 'zod'
 import { CURRENCIES } from '../constants'
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { PaymentSearchResponse } from '../types/payment'
 
@@ -30,5 +30,6 @@ export const useFetchTableData = (searchParams: SearchParams) => {
     queryKey: [QUERY_KEY, searchParams],
     queryFn: () => fetchPaymentsFromAPI(searchParams),
     staleTime: STALE_TIME,
+    placeholderData: keepPreviousData, // prevent table disappearing on new data load
   })
 }

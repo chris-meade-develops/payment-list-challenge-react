@@ -31,15 +31,22 @@ const defaultFilters: SearchParams = {
 }
 
 export const PaymentsPage = () => {
+  // draft and commmit state rather than update on user input
   const [inputValue, setInputValue] = useState('')
   const [filters, setFilters] = useState<SearchParams>(defaultFilters)
+
+  // if this was filtering was more complex I would probably add react-hook-form and maybe combie with shadcn datatable to add more complex ui responsiveness and user interactivity.
 
   const hasChanges =
     inputValue !== defaultFilters.search ||
     filters.currency !== defaultFilters.currency ||
     filters.search !== defaultFilters.search
 
-  const { data: paymentResponse, error } = useFetchTableData(filters)
+  const {
+    data: paymentResponse,
+    error,
+    //isLoading in a production app I would handle loading states but data resolves instantly causing visual flash
+  } = useFetchTableData(filters)
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -78,6 +85,7 @@ export const PaymentsPage = () => {
           <Select
             aria-label={labels.CURRENCY_FILTER_LABEL}
             onChange={(e) =>
+              //in production I would debounce these currency calls in case of quick selections changes
               setFilters((prev) => ({
                 ...prev,
                 currency: e.target.value,

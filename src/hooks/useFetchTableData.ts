@@ -10,12 +10,12 @@ const BASE_URL = '/api/payments'
 
 export const SearchParamsSchema = z.object({
   search: z.string(),
-  currency: z.enum(CURRENCIES).optional(),
+  currency: z.enum(CURRENCIES).or(z.literal('')).optional(),
   page: z.number(),
   pageSize: z.number(),
 })
 
-type SearchParams = z.infer<typeof SearchParamsSchema>
+export type SearchParams = z.infer<typeof SearchParamsSchema>
 
 const fetchPaymentsFromAPI = async (
   searchParams: SearchParams,

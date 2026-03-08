@@ -4,6 +4,7 @@ import {
   FilterRow,
   SearchButton,
   SearchInput,
+  Select,
   Title,
 } from './components'
 import { I18N } from '../constants/i18n'
@@ -15,6 +16,7 @@ import {
 import { FormEvent, useState } from 'react'
 import { DataTable } from './DataTable'
 import { ErrorAlert } from './ErrorAlert'
+import { CURRENCIES } from '../constants'
 
 // rename easier to type
 const labels = I18N
@@ -30,7 +32,10 @@ export const PaymentsPage = () => {
   const [inputValue, setInputValue] = useState('')
   const [filters, setFilters] = useState<SearchParams>(defaultFilters)
 
-  const hasChanges = inputValue !== defaultFilters.search //Todo extend to other filters in next steps
+  const hasChanges =
+    inputValue !== defaultFilters.search ||
+    filters.currency !== defaultFilters.currency ||
+    filters.search !== defaultFilters.search
 
   const { data: paymentResponse, error } = useFetchTableData(filters)
 
@@ -58,14 +63,33 @@ export const PaymentsPage = () => {
     <Container>
       <Title>{labels.PAGE_TITLE}</Title>
       <form onSubmit={handleSubmit} role="search">
+        {/* keeping this in herem tightly coupled to the state */}
         <FilterRow>
           <SearchInput
             value={inputValue}
             placeholder={labels.SEARCH_PLACEHOLDER}
             aria-label={labels.SEARCH_LABEL}
             type="search"
-            onChange={(e) => setInputValue(e.currentTarget.value)}
+            onChange={(e) => setInputValue(e.target.value)}
           />
+          <Select
+            aria-label={labels.CURRENCY_FILTER_LABEL}
+            onChange={(e) =>
+              setFilters((prev) => ({
+                ...prev,
+                currency: e.target.value,
+              }))
+            }
+            value={filters.currency}
+          >
+            {/* wont disable this as "" is valid in the api */}
+            <option value="">{labels.CURRENCIES_OPTION}</option>
+            {CURRENCIES.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </Select>
           <SearchButton type="submit" disabled={!hasChanges}>
             {labels.SEARCH_BUTTON}
           </SearchButton>

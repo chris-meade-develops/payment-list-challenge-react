@@ -1,15 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="5" failures="0" errors="0" time="0.041865042">
-    <testsuite name="src/components/ErrorAlert.test.tsx" timestamp="2026-03-08T16:17:38.320Z" hostname="chriss-MacBook-Pro.local" tests="5" failures="0" errors="0" skipped="0" time="0.041865042">
-        <testcase classname="src/components/ErrorAlert.test.tsx" name="ErrorAlert &gt; displays payment not found for 404" time="0.013041083">
+<testsuites name="vitest tests" tests="16" failures="0" errors="0" time="0.323913959">
+    <testsuite name="src/App.test.tsx" timestamp="2026-03-08T16:30:24.041Z" hostname="chriss-MacBook-Pro.local" tests="11" failures="0" errors="0" skipped="0" time="0.285634084">
+        <testcase classname="src/App.test.tsx" name="App - Step 1: Basic Payment List &gt; should fetch and display payments in a table with page=1 and pageSize=5" time="0.110032583">
         </testcase>
-        <testcase classname="src/components/ErrorAlert.test.tsx" name="ErrorAlert &gt; displays server error for 500" time="0.001915833">
+        <testcase classname="src/App.test.tsx" name="App - Step 2: Search by Payment ID &gt; should have a search input for payment ID" time="0.006135208">
         </testcase>
-        <testcase classname="src/components/ErrorAlert.test.tsx" name="ErrorAlert &gt; displays generic message for other status codes" time="0.001784625">
+        <testcase classname="src/App.test.tsx" name="App - Step 2: Search by Payment ID &gt; should search for payments by payment ID" time="0.032347584">
         </testcase>
-        <testcase classname="src/components/ErrorAlert.test.tsx" name="ErrorAlert &gt; displays generic message for non-axios errors" time="0.001468333">
+        <testcase classname="src/App.test.tsx" name="App - Step 3: Clear Filters &gt; should clear all filters when clear button is clicked" time="0.021613333">
         </testcase>
-        <testcase classname="src/components/ErrorAlert.test.tsx" name="ErrorAlert &gt; has alert role for accessibility" time="0.022829167">
+        <testcase classname="src/App.test.tsx" name="App - Step 4: Handle Payment Not Found &gt; should display error message when payment ID is not found" time="0.021146625">
+        </testcase>
+        <testcase classname="src/App.test.tsx" name="App - Step 5: Handle Server Error &gt; should display error message when API returns 500" time="0.023129792">
+        </testcase>
+        <testcase classname="src/App.test.tsx" name="App - Step 6: Currency Filter &gt; should have a currency filter dropdown" time="0.006908834">
+        </testcase>
+        <testcase classname="src/App.test.tsx" name="App - Step 6: Currency Filter &gt; should filter payments by currency when selected" time="0.011682666">
+        </testcase>
+        <testcase classname="src/App.test.tsx" name="App - Step 7: Combined Currency and Payment ID Filter &gt; should filter by both currency and payment ID" time="0.020665625">
+        </testcase>
+        <testcase classname="src/App.test.tsx" name="App - Step 8: Pagination &gt; should display pagination controls" time="0.016049458">
+        </testcase>
+        <testcase classname="src/App.test.tsx" name="App - Step 8: Pagination &gt; should disable previous button on first page" time="0.013994625">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/ErrorAlert.test.tsx" timestamp="2026-03-08T16:30:24.043Z" hostname="chriss-MacBook-Pro.local" tests="5" failures="0" errors="0" skipped="0" time="0.038279875">
+        <testcase classname="src/components/ErrorAlert.test.tsx" name="ErrorAlert &gt; displays payment not found for 404" time="0.01302525">
+        </testcase>
+        <testcase classname="src/components/ErrorAlert.test.tsx" name="ErrorAlert &gt; displays server error for 500" time="0.001210125">
+        </testcase>
+        <testcase classname="src/components/ErrorAlert.test.tsx" name="ErrorAlert &gt; displays generic message for other status codes" time="0.000994084">
+        </testcase>
+        <testcase classname="src/components/ErrorAlert.test.tsx" name="ErrorAlert &gt; displays generic message for non-axios errors" time="0.000951458">
+        </testcase>
+        <testcase classname="src/components/ErrorAlert.test.tsx" name="ErrorAlert &gt; has alert role for accessibility" time="0.021323292">
         </testcase>
     </testsuite>
 </testsuites>

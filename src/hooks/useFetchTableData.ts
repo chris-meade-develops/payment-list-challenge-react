@@ -1,21 +1,11 @@
-import z from 'zod'
-import { CURRENCIES } from '../constants'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { PaymentSearchResponse } from '../types/payment'
+import { type PaymentSearchResponse } from '../types/payment'
+import { type SearchParams } from '../types/searchParams'
 
 const STALE_TIME = 5000 // 5 seconds
 const QUERY_KEY = 'payments'
 const BASE_URL = '/api/payments'
-
-export const SearchParamsSchema = z.object({
-  search: z.string(),
-  currency: z.enum(CURRENCIES).or(z.literal('')).optional(),
-  page: z.number(),
-  pageSize: z.number(),
-})
-
-export type SearchParams = z.infer<typeof SearchParamsSchema>
 
 const fetchPaymentsFromAPI = async (
   searchParams: SearchParams,

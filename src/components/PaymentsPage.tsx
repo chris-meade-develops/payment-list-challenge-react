@@ -2,6 +2,8 @@ import {
   ClearButton,
   Container,
   FilterRow,
+  PaginationButton,
+  PaginationRow,
   SearchButton,
   SearchInput,
   Select,
@@ -46,6 +48,7 @@ export const PaymentsPage = () => {
     const result = SearchParamsSchema.safeParse({
       ...filters,
       search: inputValue,
+      page: 1, // reset back to page one on anything that narrows results
     })
 
     if (result.success) {
@@ -63,7 +66,7 @@ export const PaymentsPage = () => {
     <Container>
       <Title>{labels.PAGE_TITLE}</Title>
       <form onSubmit={handleSubmit} role="search">
-        {/* keeping this in herem tightly coupled to the state */}
+        {/* keeping this in here tightly coupled to the state */}
         <FilterRow>
           <SearchInput
             value={inputValue}
@@ -78,6 +81,7 @@ export const PaymentsPage = () => {
               setFilters((prev) => ({
                 ...prev,
                 currency: e.target.value,
+                page: 1, // we want to reset back to page one
               }))
             }
             value={filters.currency}
@@ -105,7 +109,31 @@ export const PaymentsPage = () => {
         <ErrorAlert error={error} />
       ) : (
         // default to an empty array for now need to implement proper laoding states
-        <DataTable payments={paymentResponse?.payments ?? []} />
+        <>
+          <DataTable payments={paymentResponse?.payments ?? []} />
+          <PaginationRow>
+            <PaginationButton
+              disabled={filters.page <= 1}
+              onClick={() =>
+                setFilters((prev) => ({ ...prev, page: prev.page - 1 }))
+              }
+            >
+              {labels.PREVIOUS_BUTTON}
+            </PaginationButton>
+            {labels.PAGE_LABEL} {paymentResponse?.page}
+            <PaginationButton
+              disabled={
+                !paymentResponse ||
+                paymentResponse.payments.length < filters.pageSize
+              }
+              onClick={() =>
+                setFilters((prev) => ({ ...prev, page: prev.page + 1 }))
+              }
+            >
+              {labels.NEXT_BUTTON}
+            </PaginationButton>
+          </PaginationRow>
+        </>
       )}
     </Container>
   )
